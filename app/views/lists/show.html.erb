@@ -1,27 +1,65 @@
-<h1> Here is your selected list! </h1>
+<h1> Your selected list: <strong> <%= @list.name %> </strong> </h1>
 
 <hr>
 
+<div class="card-trip">
+  <img src=<%= "#{@list.image_url}" %> />
+  <div class="card-trip-infos">
+    <div>
+      <h2><%= @list.name %></h2>
+    </div>
+  </div>
+</div>
+
+<p> <strong> Your list has the following bookmarks: </strong> </p>
+
+<div class="row my-2">
+  <% @list.movies.each do |movie| %>
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+    <div class="col-12 col-sm-4" style="width: 18rem;">
+      <div class="bg-white rounded shadow h-100 d-flex flex-column justify-content-between">
+        <%= image_tag movie.poster_url, alt: movie.title, class: 'card-img-top movie-img rounded-top w-100' %>
+        <p class="card-title"> Title: <%= movie.title %> </p>
+        <p> Rating: <%= movie.rating %> </p>
+        <p> Overview: <%= movie.overview %></p>
+        <p> Comment: <%= bookmark.comment %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+<br>
+
+<div class="btn btn-ghost">
+  <%= link_to "Back to all lists", lists_path %>
+</div>
+
+<div class="btn btn-ghost">
+  <%= link_to "Create new bookmark", new_list_bookmark_path(@list) %>
+</div>
+
+
+<!-- 
 <div class="card-product">
-  <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
   <div class="card-product-infos">
-    <h2><strong> Your list with the name: <%= @list.name %> </strong></h2>
-    <p> <strong> Your list has the following bookmarks: </strong> </p>
+      <% @list.bookmarks.each do |bookmark| %>
+      <img src="<%= bookmark.movie.poster_url %>" />
+        <div> <strong> Title: <%= bookmark.movie.title %> </strong> </div>
+        <div> Overview: <%= bookmark.movie.overview %> </div>
+        <div> Rating: <%= bookmark.movie.rating %> </div>
+        <div> Comment: <%= bookmark.comment %> </div> 
+        <div class="btn btn-success"> 
+          <%= link_to "Delete bookmark", bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+        </div>
+      <% end %>
+  </div>
+</div>
+-->
+
+<!-- 
     <p><% @list.bookmarks.each do |bookmark| %></p>
       <li><%= bookmark.comment%></li>
     <%end%>
-    <ul>
-      <% @list.bookmarks.each do |bookmark| %>
-        <li>
-          <%= bookmark.comment %>
-          <%= link_to "Delete", bookmark_path(bookmark),
-            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-          %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+-->
 
 
 
