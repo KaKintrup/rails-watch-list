@@ -1,0 +1,22 @@
+<h1> Here are all your lists! </h1>
+
+
+  <ul>
+    <% @lists.each do |list| %>
+      <div class="card-product">
+        <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+        <div class="card-product-infos">
+          <li><%= link_to "#{list.name}", list_path(list) %></li>
+        </div>
+      </div>
+    <% end %>
+  </ul>
+
+
+<!--
+<ul>
+  <% @lists.each do |list| %>
+    <li><%= list.name %></li>
+  <% end %>
+</ul>
+-->

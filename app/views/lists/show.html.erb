@@ -1,0 +1,22 @@
+<h1> Here is your selected list! </h1>
+
+<p> <strong> Your list with the name: </strong> </p>
+
+<p><%= @list.name %></p>
+
+<p> <strong> Your list has the following bookmarks: </strong> </p>
+<p><% @list.bookmarks.each do |bookmark| %></p>
+  <li><%= bookmark.comment%></li>
+<%end%>
+
+<p><strong>Bookmarks</strong></p>
+<ul>
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <%= bookmark.comment %>
+      <%= link_to "Delete", bookmark_path(bookmark),
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+      %>
+    </li>
+  <% end %>
+</ul>
